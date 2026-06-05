@@ -1,0 +1,9 @@
+# Go build/test output
+bin/
+*.test
+coverage.out
+
+# Local editor and OS files
+.DS_Store
+.idea/
+.vscode/
