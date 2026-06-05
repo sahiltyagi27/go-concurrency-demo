@@ -24,6 +24,17 @@ go run -race . -race-demo
 | Mutex and RWMutex | [concepts/mutex.go](concepts/mutex.go) |
 | Race conditions, deadlocks, goroutine leaks | [concepts/pitfalls.go](concepts/pitfalls.go) |
 
+## Best Interview Explanation
+
+### Worker Pool
+
+A worker pool limits concurrency by starting a fixed number of goroutines. All workers read from the same job channel and send results to an output channel. A `sync.WaitGroup` waits for all workers to finish before closing the output channel.
+
+In this repo:
+
+- [pipeline/processor.go](pipeline/processor.go) creates the worker pool.
+- [main.go](main.go) calls `pipeline.Process(articles, 3)` to run three workers.
+
 ## Main Guide
 
 Read the full study notes here:
@@ -39,4 +50,3 @@ Read the full study notes here:
 - `context.Context` carries cancellation and deadlines.
 - Use mutexes for shared memory and channels for communication.
 - Use the race detector with `go run -race` or `go test -race`.
-
