@@ -168,6 +168,30 @@ wg.Wait()   // blocks here until all 3 call Done()
 
 **Rule:** Never close a channel from multiple goroutines — only one designated "closer" should do it. Use WaitGroup to know when that's safe.
 
+### sync.WaitGroup.Go
+
+Go 1.25 added `WaitGroup.Go`, a helper that starts a goroutine and automatically tracks it in the wait group.
+
+Classic pattern:
+
+```go
+wg.Add(1)
+go func() {
+    defer wg.Done()
+    doWork()
+}()
+```
+
+Newer pattern:
+
+```go
+wg.Go(func() {
+    doWork()
+})
+```
+
+This reduces mistakes like calling `Add` inside the goroutine or forgetting `Done`. The classic `Add` / `Done` pattern is still important because many existing Go codebases use it.
+
 ---
 
 ## 4. Done Channel — Cancellation — `pipeline/aggregator.go`
@@ -571,6 +595,11 @@ var wg sync.WaitGroup
 wg.Add(n)
 defer wg.Done()   // inside goroutine
 wg.Wait()         // blocks until all Done()
+
+// WaitGroup.Go, Go 1.25+
+wg.Go(func() {
+    doWork()
+})
 
 // Context
 ctx, cancel := context.WithTimeout(context.Background(), time.Second)

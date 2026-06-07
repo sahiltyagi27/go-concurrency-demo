@@ -23,6 +23,7 @@ go run -race . -race-demo
 | Context cancellation and deadlines | [concepts/context.go](concepts/context.go) |
 | Mutex and RWMutex | [concepts/mutex.go](concepts/mutex.go) |
 | Race conditions, deadlocks, goroutine leaks | [concepts/pitfalls.go](concepts/pitfalls.go) |
+| `sync.WaitGroup.Go` in Go 1.25+ | [concepts/waitgroup_go.go](concepts/waitgroup_go.go) |
 
 ## Best Interview Explanation
 
@@ -34,6 +35,30 @@ In this repo:
 
 - [pipeline/processor.go](pipeline/processor.go) creates the worker pool.
 - [main.go](main.go) calls `pipeline.Process(articles, 3)` to run three workers.
+
+### WaitGroup.Go
+
+`sync.WaitGroup.Go` is available in Go 1.25+. It is a convenience helper that starts a goroutine and tracks it in the wait group automatically.
+
+Classic pattern:
+
+```go
+wg.Add(1)
+go func() {
+    defer wg.Done()
+    work()
+}()
+```
+
+Newer helper:
+
+```go
+wg.Go(func() {
+    work()
+})
+```
+
+It reduces mistakes like calling `Add` inside the goroutine or forgetting `Done`.
 
 ## Main Guide
 

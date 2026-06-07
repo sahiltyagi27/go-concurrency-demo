@@ -18,6 +18,7 @@
 //   concepts/context.go    — context cancellation, timeout, request scoping
 //   concepts/mutex.go      — shared memory, Mutex, RWMutex
 //   concepts/pitfalls.go   — races, deadlock avoidance, goroutine leaks
+//   concepts/waitgroup_go.go — Go 1.25+ sync.WaitGroup.Go helper
 
 package main
 
@@ -43,6 +44,7 @@ func main() {
 		runContextDemo()
 		runSharedStateDemo()
 		runPitfallsDemo()
+		runWaitGroupGoDemo()
 	}
 }
 
@@ -219,5 +221,16 @@ func runSharedStateDemo() {
 func runPitfallsDemo() {
 	fmt.Println("=== DEMO 7: race, deadlock, and leak prevention ===")
 	concepts.RunPitfallsDemo()
+	fmt.Println()
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Demo 8: WaitGroup.Go
+// Shows: Go 1.25+ helper for launching goroutines tracked by a WaitGroup
+// ─────────────────────────────────────────────────────────────────────────────
+
+func runWaitGroupGoDemo() {
+	fmt.Println("=== DEMO 8: sync.WaitGroup.Go ===")
+	concepts.RunWaitGroupGoDemo()
 	fmt.Println()
 }
