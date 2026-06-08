@@ -28,6 +28,11 @@ import (
 //   - wg.Done() in each goroutine when it exits
 //   - wg.Wait() blocks until all goroutines call Done
 //
+// Go 1.25+ also supports wg.Go(func() { ... }), which combines Add,
+// launching the goroutine, and Done. This file keeps the classic Add/Done
+// style because it is still common in existing Go code and makes the mechanics
+// explicit for learning.
+//
 // The closer goroutine waits for all workers to finish, then closes `out`.
 // This is the correct shutdown pattern for fan-out → fan-in.
 func Process(in <-chan Article, numWorkers int) <-chan Article {
