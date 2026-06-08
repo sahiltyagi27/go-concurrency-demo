@@ -95,12 +95,37 @@ ch <- 4  // BLOCKS — buffer is full, waiting for a receiver
 ### Channel Direction (Read-only / Write-only)
 
 ```go
-func producer() <-chan int { ... }  // returns read-only channel
+func producer() <-chan int { ... }     // returns read-only channel
+func inbox() chan<- int { ... }        // returns write-only channel
 func consumer(in <-chan int)  { ... }  // accepts read-only channel
 func sender(out chan<- int)   { ... }  // accepts write-only channel
 ```
 
 This enforces ownership — only the creator sends, callers only receive.
+
+Write-only return example:
+
+```go
+func StartPrinter() chan<- string {
+    ch := make(chan string)
+
+    go func() {
+        for msg := range ch {
+            fmt.Println(msg)
+        }
+    }()
+
+    return ch // caller can send, but cannot receive
+}
+
+func main() {
+    printer := StartPrinter()
+    printer <- "hello"
+    close(printer)
+}
+```
+
+Returning `<-chan T` is more common because generators usually expose values to callers. Returning `chan<- T` is useful when you want callers to submit work/messages but not read internal results.
 
 ### Closing a Channel
 
