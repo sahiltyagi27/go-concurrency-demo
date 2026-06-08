@@ -95,13 +95,29 @@ ch <- 4  // BLOCKS — buffer is full, waiting for a receiver
 ### Channel Direction (Read-only / Write-only)
 
 ```go
+func both() chan int { ... }          // returns bidirectional channel
 func producer() <-chan int { ... }     // returns read-only channel
 func inbox() chan<- int { ... }        // returns write-only channel
 func consumer(in <-chan int)  { ... }  // accepts read-only channel
 func sender(out chan<- int)   { ... }  // accepts write-only channel
 ```
 
-This enforces ownership — only the creator sends, callers only receive.
+If there is no arrow, the channel is bidirectional:
+
+```go
+ch := make(chan int) // type is chan int
+
+ch <- 10  // send allowed
+v := <-ch // receive allowed
+```
+
+Directional channels enforce ownership:
+
+```go
+chan int   // send and receive
+<-chan int // receive-only / read-only
+chan<- int // send-only / write-only
+```
 
 Write-only return example:
 
