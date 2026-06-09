@@ -32,6 +32,9 @@ func FanOut[T any](in <-chan T, n int) []<-chan T {
 		}
 	}()
 
+	// Keep bidirectional channels internally so FanOut can send and close them,
+	// but return receive-only channels to enforce ownership and prevent callers
+	// from sending or closing.
 	result := make([]<-chan T, n)
 	for i, ch := range outputs {
 		result[i] = ch
