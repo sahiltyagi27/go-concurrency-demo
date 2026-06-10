@@ -19,6 +19,7 @@
 //   concepts/mutex.go      — shared memory, Mutex, RWMutex
 //   concepts/pitfalls.go   — races, deadlock avoidance, goroutine leaks
 //   concepts/waitgroup_go.go — Go 1.25+ sync.WaitGroup.Go helper
+//   concepts/pingpong.go   — ping/pong synchronization with unbuffered channels
 
 package main
 
@@ -45,6 +46,7 @@ func main() {
 		runSharedStateDemo()
 		runPitfallsDemo()
 		runWaitGroupGoDemo()
+		runPingPongDemo()
 	}
 }
 
@@ -232,5 +234,16 @@ func runPitfallsDemo() {
 func runWaitGroupGoDemo() {
 	fmt.Println("=== DEMO 8: sync.WaitGroup.Go ===")
 	concepts.RunWaitGroupGoDemo()
+	fmt.Println()
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Demo 9: Ping Pong
+// Shows: strict alternation using two unbuffered channels as signals
+// ─────────────────────────────────────────────────────────────────────────────
+
+func runPingPongDemo() {
+	fmt.Println("=== DEMO 9: ping/pong with channels ===")
+	concepts.RunPingPongDemo()
 	fmt.Println()
 }

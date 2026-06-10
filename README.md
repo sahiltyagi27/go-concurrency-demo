@@ -24,6 +24,7 @@ go run -race . -race-demo
 | Mutex and RWMutex | [concepts/mutex.go](concepts/mutex.go) |
 | Race conditions, deadlocks, goroutine leaks | [concepts/pitfalls.go](concepts/pitfalls.go) |
 | `sync.WaitGroup.Go` in Go 1.25+ | [concepts/waitgroup_go.go](concepts/waitgroup_go.go) |
+| Ping/pong channel synchronization | [concepts/pingpong.go](concepts/pingpong.go) |
 
 ## Best Interview Explanation
 
@@ -60,6 +61,14 @@ wg.Go(func() {
 
 It reduces mistakes like calling `Add` inside the goroutine or forgetting `Done`.
 
+### Ping Pong With Channels
+
+Two unbuffered channels can force strict alternation between goroutines. One goroutine waits on `pingCh`, prints `ping`, then signals `pongCh`. The other waits on `pongCh`, prints `pong`, then signals `pingCh`.
+
+In this repo:
+
+- [concepts/pingpong.go](concepts/pingpong.go) contains the runnable demo.
+
 ## Main Guide
 
 Read the full study notes here:
@@ -75,3 +84,4 @@ Read the full study notes here:
 - `context.Context` carries cancellation and deadlines.
 - Use mutexes for shared memory and channels for communication.
 - Use the race detector with `go run -race` or `go test -race`.
+- Unbuffered channels act as synchronization points.
