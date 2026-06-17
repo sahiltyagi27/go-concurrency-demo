@@ -3,6 +3,10 @@
 > Reference for the `go-concurrency-demo` project.
 > Run demos: `go run .`, `go run . -timeout`, or `go run -race . -race-demo`
 
+For real-world decision making, also read:
+
+- [DECISION_GUIDE.md](DECISION_GUIDE.md)
+
 ---
 
 ## The Core Philosophy

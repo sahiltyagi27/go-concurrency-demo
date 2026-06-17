@@ -74,6 +74,7 @@ In this repo:
 Read the full study notes here:
 
 - [GUIDE.md](GUIDE.md)
+- [DECISION_GUIDE.md](DECISION_GUIDE.md)
 
 ## Interview Highlights
 
@@ -85,3 +86,4 @@ Read the full study notes here:
 - Use mutexes for shared memory and channels for communication.
 - Use the race detector with `go run -race` or `go test -race`.
 - Unbuffered channels act as synchronization points.
+- Choose the concurrency tool based on ownership, coordination, cancellation, and limits.
