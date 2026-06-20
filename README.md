@@ -75,6 +75,7 @@ Read the full study notes here:
 
 - [GUIDE.md](GUIDE.md)
 - [DECISION_GUIDE.md](DECISION_GUIDE.md)
+- [PRACTICE_IDEAS.md](PRACTICE_IDEAS.md)
 
 ## Interview Highlights
 
